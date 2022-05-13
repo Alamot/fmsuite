@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Exclude thumbnails
+fmsuite/static/img/thumbs/
