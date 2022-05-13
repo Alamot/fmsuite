@@ -1,0 +1,4 @@
+flask
+flask-talisman
+redis>=3.0.0
+rq>=1.2.0

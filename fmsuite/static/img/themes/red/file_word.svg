@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 619.5835 775.51324" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="c">
+   <feGaussianBlur stdDeviation="2.37709"/>
+  </filter>
+  <filter id="d">
+   <feGaussianBlur stdDeviation=".30134"/>
+  </filter>
+  <linearGradient id="b" x1="1759.1" x2="1783.6" y1="967.51" y2="952.44" gradientTransform="matrix(.46035 .0049 -.0049 .46035 877.65 341.3)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f2f2f2" offset="0"/>
+   <stop stop-color="#808080" offset="1"/>
+  </linearGradient>
+  <radialGradient id="a" cx="1723.8" cy="1029" r="62.5" gradientTransform="matrix(.01119 .9938 -1.4368 .01618 3125.3 -905.59)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#fff" offset=".5"/>
+   <stop stop-color="#4d4d4d" offset="1"/>
+  </radialGradient>
+ </defs>
+ <g transform="matrix(8.7409 -.15257 .15257 8.7409 -14370 -6539.5)">
+  <path transform="matrix(.67007 -.1547 .1547 .67007 196.09 592.2)" d="m1983 739.53-27.568 113.86 81.332 19.691 22.822-94.263-14.855-24.346-61.73-14.946z" filter="url(#c)"/>
+  <path d="m1639.2 780.98-0.8579 80.562 57.544 0.61271 0.7101-66.694-13.72-14.016-43.676-0.46507z" fill="#e6e6e6"/>
+  <path d="m1639.2 780.98-0.8579 80.562 57.544 0.61271 0.7101-66.694-13.72-14.016-43.676-0.46507z" fill="url(#a)" opacity=".6"/>
+  <path transform="matrix(.46035 .0049 -.0049 .46035 891.44 444.22)" d="m1726.7 714.69s1.7858 3.7612 1.7858 5.7812-1.6072 24.353-1.6072 24.353 20.722-1.6072 23.906-1.5179 6.049 1.5179 6.049 1.5179l-30.134-30.134z" fill="#666" filter="url(#d)"/>
+  <path d="m1682.9 781.44s0.8038 1.7402 0.7938 2.6702-0.8592 11.203-0.8592 11.203 9.5472-0.63834 11.013-0.58158c1.4638 0.0567 2.7772 0.7284 2.7772 0.7284l-13.725-14.02z" fill="url(#b)"/>
+  <g transform="translate(.86614 -4.2984)">
+   <path d="m1641.8 850.01h48.214v5.7143h-48.214z" fill="#003380"/>
+   <path d="m1641.8 840.01h48.214v5.7143h-48.214z" fill="#003380"/>
+   <path d="m1672.5 830.01h17.5v5.7143h-17.5z" fill="#003380"/>
+   <path d="m1672.5 820.01h17.5v5.7143h-17.5z" fill="#003380"/>
+   <path d="m1672.5 810.01h17.5v5.7143h-17.5z" fill="#003380"/>
+   <path d="m1630.4 801.21h34.16v34.16h-34.16z" fill="#fff" stroke="#003380" stroke-width="2.4113"/>
+   <text x="1647.2739" y="828.19421" font-family="Arial" font-size="29.871px" text-anchor="middle">
+    <tspan x="1647.2739" y="828.19421" fill="#003380" font-family="Cambria" font-size="29.871px" font-weight="bold" text-anchor="middle">W</tspan>
+   </text>
+  </g>
+ </g>
+</svg>

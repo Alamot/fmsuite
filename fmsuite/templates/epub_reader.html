@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html id="simpleViewer">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/readium-all.css')}}" nonce="{{ csp_nonce() }}">
+<script type="text/javascript" src="{{url_for('static',filename='js/readium-js-viewer_all_LITE.js')}}" nonce="{{ csp_nonce() }}"></script>
+<script type="text/javascript" nonce="{{ csp_nonce() }}">
+// MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
+require.config({
+  /* http://requirejs.org/docs/api.html#config-waitSeconds */
+  waitSeconds: 0,
+  config: {
+     "readium_js_viewer/ModuleConfig": {
+     "mathJaxUrl": "{{url_for('static',filename='js/mathjax/MathJax.js')}}",
+     "annotationCSSUrl": "{{url_for('static',filename='css/annotations.css')}}",
+     "jsLibRoot": "/js/zip/",
+     "useSimpleLoader": false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
+     "epubLibraryPath": undefined, // defaults to /epub_content/epub_library.json relative to the application's root index.html ... that being said, this is cloud reader LITE (no library view!)
+     "imagePathPrefix": "/img/",
+     "canHandleUrl": false,
+     "canHandleDirectory": false,
+     "workerUrl": undefined,
+     "epubReadingSystemUrl": undefined
+    }
+  }
+});
+</script>
+</head>
+<body>
+ <nav id="app-navbar" class="navbar" role="banner"> </nav>
+ <div id="app-container"> </div>
+</body>
+</html>

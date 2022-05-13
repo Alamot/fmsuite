@@ -1,0 +1,62 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: gold;
+}
+
+#flashed-messages-modal { 
+  word-wrap: break-word;
+}
+
+#remote-content {
+  display: table; 
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: none;
+}
+
+.black-bg {
+  background-color: #000000;
+}
+
+.no-margin {
+ margin: 0;
+}
+
+.hr-text {
+  width: 100%; 
+  text-align: center; 
+  border-bottom: 1px solid #000; 
+  line-height: 0.1em;
+  margin: 10px 0 20px; 
+} 
+
+.hr-text span { 
+  background:#fff; 
+  padding:0 10px; 
+}
+
+.h200 {
+  height: 200px !important;
+}
+
+audio {
+  width:100% !important;
+}
+
+.img-fluid {
+  //width: 128px;
+  height: 128px;
+}
+
+.sl-image iframe {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.tab-pane:not(.active) {
+  display: none;
+}
+
+.downloader_iframe {
+  display: none;
+}

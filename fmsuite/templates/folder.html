@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+
+
+{% block header %}
+<div class="row mb-2">
+  <div class="col-sm-12">
+    <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{{ url_for('index') }}"><i class="fa fa-home"></i></a>
+          </li>
+        {% for e in paths %}
+          <li class="breadcrumb-item">
+            <a href="{{ url_for('explore_path', uid=e['uid']) }}">{{ e['name'] }}</a>
+          </li>
+        {% endfor %}
+    </ol>
+  </div><!-- /.col -->
+</div><!-- /.row -->
+{% endblock header %}
+
+
+{% block title %}FM Suite{% endblock %}
+
+
+{% block content %}
+<div class="tab-content">
+
+<!-- tab-pane gallery-view  -->
+<div class="tab-pane filter-container row p-0 align-items-end fade {% if g.VIEW == '#gallery-view' %}show active{% endif %}" 
+     id="gallery-view" role="tabpanel">
+{% for dir in dirs %}
+  <div class="fm-item col-lg-2 col-md-3 col-sm-4 col-6">
+    <div class="small-box bg-white">
+      <div class="inner">
+        <a href="{{ url_for('explore_path', uid=dir['uid']) }}"><img src="{{ dir['thumb'] }}"
+           class="img-fluid mx-auto d-block align-middle" alt="folder"/></a>
+      </div>
+      <a class="small-box-footer text-truncate px-2"
+        href="{{ url_for('explore_path', uid=dir['uid']) }}"
+         title="{{ dir['name'] }}"><small>{{ dir['name'] }}</small></a>
+    </div>
+  </div>
+{% endfor %}
+{% for file in files %}
+  <div class="fm-item col-lg-2 col-md-3 col-sm-4 col-6"> 
+    <div class="small-box bg-white">
+      <div class="inner">
+        <a class="slb-item" href="{{ url_for('serve_file', uid=file['uid']) }}"
+           title="{{ file['name'] }}" type="{{ file['mime'] }}">
+             <img id="{{ file['uid'] }}" src="{{ file['thumb'] }}" 
+                  class="img-fluid mx-auto d-block align-middle" alt="{{ file['mime'] }}"/>
+        </a>
+      </div>
+      <a class="small-box-footer text-truncate px-2" 
+         href="{{ url_for('get_file', uid=file['uid']) }}"
+         title="{{ file['name'] }}" download>
+           <small><i class="fa fa-download"></i> {{ file['name'] }}</small>
+      </a>
+    </div>
+  </div>
+{% endfor %}
+</div> <!-- tab-pane gallery-view end -->
+
+<!-- tab-pane tables-view -->
+<div class="tab-pane row p-0 fade {% if g.VIEW == '#tables-view' %}show active{% endif %}" 
+     id="tables-view" role="tabpanel">
+<div class="card col-12">
+<div class="card-body">
+  <table id="folder-contents" class="table table-striped table-hover">
+    <thead>
+      <tr>
+      <th class="text-center">Name</th>
+      <th class="text-center">Mime type</th>
+      <th data-order="0" class="text-center">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for dir in dirs %}
+      <tr>
+        <td class="text-center">
+           <a href="{{ url_for('explore_path', uid=dir['uid']) }}">{{ dir["name"] }}</a>
+        </td>
+        <td class="text-center">directory</td>
+        <td class="text-center"></td>
+      </tr>
+    {% endfor %}
+    {% for file in files %}
+      <tr>
+        <td class="text-center">{{ file["name"] }}</td>
+        <td class="text-center">{{ file["mime"] }}</td>
+        <td data-order="{{ file['stat'].st_size }}"
+            class="text-center">{{ file["stat"].st_size|filesizeformat }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+ </div>
+</div>
+</div> <!-- tab-pane tables-view end -->
+
+</div> <!-- tab-content -->
+{% endblock content %}
+
+
+{% block js %}
+$(function () {
+
+// On image error show a loading circle gif
+$("img").on("error", function () {
+  $(this).attr("src", "{{ url_for('static', filename=config.REL_THEME_PATH + 
+                                                     'thumb_loading.gif') }}");
+});
+
+var TABLES = ["folder-contents"];
+{% include "tables.js" %}
+
+// Filter folder contents
+$("#filter-search").on("input", function() {
+  var value = $(this).val().toLowerCase();
+  $(".small-box-footer").filter(function() {
+    var test = $(this).text().toLowerCase().indexOf(value) > -1;
+    $(this).parents(".fm-item").toggle(test);
+  });
+  datatables["folder-contents"].search(value).draw();
+});
+
+// Initiate lightbox
+var lightbox = $(".slb-item").simpleLightbox({captionSelector: "self",
+                                             captionType:"title",
+                                             captionPosition: "outside",
+                                             alertError: false,
+                                             docClose: false });
+
+function check_thumb_jobs() {
+  /* It loads the new thumbnails when thumbnail jobs are finished. */
+  $.getJSON("{{ url_for('get_finished_thumbs') }}", function(ids) {
+    //console.log(ids);
+    if (!(ids === "empty")) {  setTimeout(check_thumb_jobs, 1000); }
+    for (let i in ids) {
+      $("#" + ids[i])
+       .attr("src",
+             "{{ url_for('static', filename=config.REL_THUMB_PATH) }}" + 
+             ids[i].slice(0, 3) + "/" + ids[i] + ".jpg");
+    }
+  });
+}
+
+// Run check_thumb_jobs()
+check_thumb_jobs();
+
+// Shift + left mouse click on a file -> Refresh its thumbnail.
+$(".slb-item > img").on("click", function(e) {
+  if (e.shiftKey) {
+     e.preventDefault();
+     e.stopPropagation();
+     $.post("/refresh/" + this.id + "/");
+  }
+});
+
+});
+{% endblock js %}
